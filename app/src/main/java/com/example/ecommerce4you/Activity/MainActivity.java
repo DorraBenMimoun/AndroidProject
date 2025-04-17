@@ -20,6 +20,7 @@ import com.example.ecommerce4you.Domain.BannerModel;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.ViewModel.MainViewModel;
 import com.example.ecommerce4you.databinding.ActivityMainBinding;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,18 @@ public class MainActivity extends AppCompatActivity {
         initCategory();
         initSlider();
         initPopular();
+        bottomNavigation();
 
+    }
+
+    private void bottomNavigation() {
+        binding.bottomNavigation.setItemSelected(R.id.home,true);
+        binding.bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int i) {
+
+            }
+        });
     }
 
     private void initPopular() {
