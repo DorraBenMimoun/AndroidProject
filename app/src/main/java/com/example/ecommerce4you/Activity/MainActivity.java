@@ -1,5 +1,6 @@
 package com.example.ecommerce4you.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,CartActivity.class)));
     }
 
     private void initPopular() {
