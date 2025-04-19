@@ -6,9 +6,6 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -26,87 +23,121 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    // Liaison avec la vue (utilise ViewBinding pour accéder aux éléments de layout)
     private ActivityMainBinding binding;
+
+    // ViewModel utilisé pour récupérer les données (catégories, bannières, produits populaires)
     private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Active le mode "Edge-to-Edge" pour une meilleure gestion du plein écran
         EdgeToEdge.enable(this);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+
+        // Initialise le ViewBinding
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewModel= new MainViewModel();
+        // Initialise le ViewModel
+        viewModel = new MainViewModel();
 
-        initCategory();
-        initSlider();
-        initPopular();
-        bottomNavigation();
-
+        // Initialise les différentes sections de l'application
+        initCategory();   // Chargement des catégories
+        initSlider();     // Chargement du carrousel (slider)
+        initPopular();    // Chargement des produits populaires
+        bottomNavigation(); // Gestion de la navigation et du bouton panier
     }
 
+    // Méthode pour gérer la barre de navigation inférieure et le bouton panier
     private void bottomNavigation() {
-        binding.bottomNavigation.setItemSelected(R.id.home,true);
+        // Sélectionne l'onglet "home" par défaut
+        binding.bottomNavigation.setItemSelected(R.id.home, true);
+
+        // Listener sur les onglets de la barre de navigation
         binding.bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int i) {
-
+                // Tu peux gérer la navigation vers d'autres activités ici
             }
         });
 
-        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,CartActivity.class)));
+        // Redirection vers l'activité "CartActivity" quand on clique sur le bouton panier
+        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
     }
 
+    // Méthode pour initialiser les produits populaires
     private void initPopular() {
+        // Affiche un loader pendant le chargement
         binding.progressBarPopular.setVisibility(View.VISIBLE);
+
+        // Observe les données populaires depuis le ViewModel
         viewModel.loadPopular().observeForever(itemsModels -> {
-            if (!itemsModels.isEmpty())
-            {
+            if (!itemsModels.isEmpty()) {
+                // Affiche les produits populaires dans un RecyclerView horizontal
                 binding.popularView.setLayoutManager(
-                        new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false)
+                        new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false)
                 );
                 binding.popularView.setAdapter(new PopularAdapter(itemsModels));
                 binding.popularView.setNestedScrollingEnabled(true);
             }
+
+            // Cache le loader une fois les données chargées
             binding.progressBarPopular.setVisibility(View.GONE);
         });
-        viewModel.loadPopular();
 
+        // Appelle la méthode de chargement (au cas où elle déclenche aussi un cache ou autre logique)
+        viewModel.loadPopular();
     }
 
+    // Méthode pour initialiser le slider (carrousel de bannières)
     private void initSlider() {
         binding.progressBarSlider.setVisibility(View.VISIBLE);
+
+        // Observe les données de bannières depuis le ViewModel
         viewModel.loadBanner().observeForever(bannerModels -> {
-            if (bannerModels != null && !bannerModels.isEmpty())
-            {
+            if (bannerModels != null && !bannerModels.isEmpty()) {
+                // Si les bannières existent, on les passe au composant slider
                 banners(bannerModels);
                 binding.progressBarSlider.setVisibility(View.GONE);
             }
         });
 
-        viewModel.loadBanner();
+        viewModel.loadBanner(); // même logique que plus haut
     }
 
+    // Affiche les bannières dans un ViewPager2 avec effet de transformation
     private void banners(ArrayList<BannerModel> bannerModels) {
-        binding.viewPagerSlider.setAdapter(new SliderAdpater(bannerModels,binding.viewPagerSlider));
+        // Adapter personnalisé pour afficher les bannières
+        binding.viewPagerSlider.setAdapter(new SliderAdpater(bannerModels, binding.viewPagerSlider));
+
+        // Configuration pour un slider plus esthétique
         binding.viewPagerSlider.setClipToPadding(false);
         binding.viewPagerSlider.setClipChildren(false);
         binding.viewPagerSlider.setOffscreenPageLimit(3);
         binding.viewPagerSlider.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
+        // Ajoute un effet de marge entre les pages (pour le style carrousel)
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-
         binding.viewPagerSlider.setPageTransformer(compositePageTransformer);
     }
 
+    // Méthode pour initialiser les catégories
     private void initCategory() {
         binding.progressBarCategory.setVisibility(View.VISIBLE);
+
+        // Observe les catégories depuis le ViewModel
         viewModel.loadCategory().observeForever(categoryModels -> {
-            binding.categoryView.setLayoutManager(new LinearLayoutManager(
-                    MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
+            // Affiche les catégories dans un RecyclerView horizontal
+            binding.categoryView.setLayoutManager(
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
             binding.categoryView.setAdapter(new CategoryAdapter(categoryModels));
             binding.categoryView.setNestedScrollingEnabled(true);
+
+            // Cache le loader
             binding.progressBarCategory.setVisibility(View.GONE);
         });
     }
