@@ -3,6 +3,7 @@ package com.example.ecommerce4you.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.example.ecommerce4you.Domain.BannerModel;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.ViewModel.MainViewModel;
 import com.example.ecommerce4you.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
@@ -49,7 +51,20 @@ public class MainActivity extends AppCompatActivity {
         initSlider();     // Chargement du carrousel (slider)
         initPopular();    // Chargement des produits populaires
         bottomNavigation(); // Gestion de la navigation et du bouton panier
+
+        binding.logout.setOnClickListener(v->{
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MainActivity.this,"Logged out successfully",Toast.LENGTH_SHORT).show();
+
+            // Redirection vers LoginActivity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Efface la backstack
+            startActivity(intent);
+            finish(); // Ferme MainActivity
+        });
+
     }
+
 
     // Méthode pour gérer la barre de navigation inférieure et le bouton panier
     private void bottomNavigation() {

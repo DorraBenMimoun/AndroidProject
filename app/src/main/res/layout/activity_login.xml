@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextPersonName"
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
@@ -55,7 +55,7 @@
                 android:textColorHint="@color/darkGrey" />
 
             <EditText
-                android:id="@+id/editTextPasswordName"
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
@@ -70,15 +70,17 @@
 
                 android:padding="8dp"
                 android:textColorHint="@color/darkGrey" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
+            <Button
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                app:srcCompat="@drawable/btn_arraw1" />
+                android:text="Login"
+                android:id="@+id/login_btn"
+                android:layout_marginEnd="45dp"
+                android:layout_marginStart="45dp"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_login"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,7 +123,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/signupRedirectText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Are you new user? Register"

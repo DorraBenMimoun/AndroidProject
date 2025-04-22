@@ -2,15 +2,8 @@ package com.example.ecommerce4you.Domain;
 
 public class CategoryModel {
     private String title;
-    private int id;
-    private String picUrl;
 
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public CategoryModel() {
     }
 
     public String getTitle() {
@@ -21,14 +14,13 @@ public class CategoryModel {
         this.title = title;
     }
 
-    public int getId() {
-        return id;
+
+    public CategoryModel(String newCategory) {
+        this.title =newCategory;
+    }
+    @Override
+    public String toString() {
+        return title; // Pour afficher uniquement le titre dans le spinner
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public CategoryModel() {
-    }
 }

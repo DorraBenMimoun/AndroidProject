@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ItemsModel implements Serializable {
+    private String itemId;
+
     private String title;
     private String description;
     private String offPercent;
     private ArrayList<String> size;
     private ArrayList<String> color;
     private ArrayList<String> picUrl;
+    private String category;
     private double price;
     private double oldPrice;
     private int review;
@@ -17,6 +20,14 @@ public class ItemsModel implements Serializable {
     private int NumberinCart;
 
     public ItemsModel() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getTitle() {
@@ -105,5 +116,13 @@ public class ItemsModel implements Serializable {
 
     public void setNumberinCart(int numberinCart) {
         NumberinCart = numberinCart;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }

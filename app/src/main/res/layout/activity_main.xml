@@ -64,10 +64,10 @@
                     app:srcCompat="@drawable/cart_icon" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/bell_icon" />
+                    app:srcCompat="@drawable/logout" />
             </LinearLayout>
 
             <LinearLayout

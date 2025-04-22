@@ -71,7 +71,12 @@ public class MainRepository {
                 ArrayList<ItemsModel> list = new ArrayList<>();
                 for (DataSnapshot childSnapshot : snapshot.getChildren()){
                     ItemsModel item = childSnapshot.getValue(ItemsModel.class);
-                    if(item != null) list.add(item);
+                    if(item != null)
+                    {
+                        item.setItemId(childSnapshot.getKey()); // ✅ Très important !
+                        list.add(item);
+
+                    }
                 }
                 listData.setValue(list);
             }

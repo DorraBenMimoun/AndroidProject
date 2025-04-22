@@ -3,6 +3,7 @@ package com.example.ecommerce4you.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
-        holder.binding.titleTxt.setText(items.get(position).getTitle());
         holder.binding.priceTxt.setText("$" + items.get(position).getPrice());
         holder.binding.ratingTxt.setText("(" + items.get(position).getRating() + ")");
         holder.binding.offPercentTxt.setText(items.get(position).getOffPercent());
@@ -57,6 +57,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             intent.putExtra("object",items.get(position));
             context.startActivity(intent);
         });
+        holder.binding.titleTxt.setText(items.get(position).getTitle());
+
     }
 
     @Override

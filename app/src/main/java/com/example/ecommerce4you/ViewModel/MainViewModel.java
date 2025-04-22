@@ -24,4 +24,8 @@ public class MainViewModel extends ViewModel {
     public LiveData<ArrayList<ItemsModel>> loadPopular(){
         return repository.locadItems();
     }
+
+    public LiveData<ArrayList<ItemsModel>> loadItems(){
+        return repository.locadItems();
+    }
 }

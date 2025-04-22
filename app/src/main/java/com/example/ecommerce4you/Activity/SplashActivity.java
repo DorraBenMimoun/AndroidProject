@@ -20,7 +20,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.startBtn.setOnClickListener(v->
-                startActivity(new Intent(SplashActivity.this, MainActivity.class)));
+                startActivity(new Intent(SplashActivity.this,SignUpActivity.class)));
+        binding.signinBtn.setOnClickListener(v->
+                startActivity(new Intent(SplashActivity.this,LoginActivity.class)));
 
     }
 }

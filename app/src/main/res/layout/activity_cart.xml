@@ -186,14 +186,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/checkoutBtn"
+                android:id="@+id/orderNowBtn"
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="32dp"
                 android:background="@drawable/orange_bg"
-                android:text="Check Out"
+                android:text="Order Now"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
