@@ -29,6 +29,9 @@ public class OrderModel implements Serializable {
         this.phone = phone;
     }
 
+    public OrderModel() {
+    }
+
     public String getAdress() {
         return adress;
     }

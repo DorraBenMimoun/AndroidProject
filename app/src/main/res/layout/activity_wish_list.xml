@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemsTitleTxt"
-        app:layout_constraintBottom_toTopOf="@id/bottomAdminNavigation"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         android:layout_marginBottom="130dp"
         android:layout_marginTop="70dp"
         android:layout_marginStart="5dp"

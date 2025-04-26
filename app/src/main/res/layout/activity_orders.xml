@@ -8,6 +8,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.OrdersActivity">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/orderRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+            <!-- nestedScrollingEnabled important ici -->
+
+        </LinearLayout>
+    </ScrollView>
+
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottomAdminNavigation"
         android:layout_width="0dp"
