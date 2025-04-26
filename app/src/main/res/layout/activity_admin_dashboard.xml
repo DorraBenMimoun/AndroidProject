@@ -67,12 +67,18 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/addItemBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Add Item" />
+                    android:background="@drawable/btn"
+
+                    android:text="Add Item"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@null" />
+
+
 
             </LinearLayout>
 
@@ -145,12 +151,17 @@
 
                     android:background="@drawable/stroke_bg" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/addCategoryButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add"
-                    android:layout_marginStart="8dp" />
+                    android:textColor="@color/white"
+
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/btn"
+                    app:backgroundTint="@null" />
+
             </LinearLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

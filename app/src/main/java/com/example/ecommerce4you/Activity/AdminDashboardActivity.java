@@ -7,44 +7,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ecommerce4you.Adapter.CategoryAdapter;
 import com.example.ecommerce4you.Adapter.CategoryAdminAdapter;
 import com.example.ecommerce4you.Adapter.PopularAdapter;
 import com.example.ecommerce4you.Domain.CategoryModel;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.ViewModel.MainViewModel;
 import com.example.ecommerce4you.databinding.ActivityAdminDashboardBinding;
-import com.example.ecommerce4you.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDashboardActivity extends BaseAdminActivity {
 
-    Button addItemBtn;
     private MainViewModel viewModel;
     private ActivityAdminDashboardBinding binding;
     private EditText newCategoryEditText;
     private Button addCategoryButton;
-    private RecyclerView categoriesRecyclerView ;
-    List<CategoryModel> categoryList;
-    private CategoryAdminAdapter categoryAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,32 +53,8 @@ public class AdminDashboardActivity extends BaseAdminActivity {
 
         newCategoryEditText = findViewById(R.id.newCategoryEditText);
         addCategoryButton = findViewById(R.id.addCategoryButton);
-       /* categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
-        categoryList = new ArrayList<>();
-        categoryAdapter = new CategoryAdminAdapter((ArrayList<CategoryModel>) categoryList);
-        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        categoriesRecyclerView.setAdapter(categoryAdapter);
-*/
 
         DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("Category");
-
-        /*categoryRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categoryList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CategoryModel category = dataSnapshot.getValue(CategoryModel.class);
-                    categoryList.add(category);
-                }
-                categoryAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AdminDashboardActivity.this, "Failed to load categories", Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
 
         addCategoryButton.setOnClickListener(v -> {
             String newCategory = newCategoryEditText.getText().toString().trim();
@@ -112,7 +76,7 @@ public class AdminDashboardActivity extends BaseAdminActivity {
 
 
 
-        setupBottomNavigation(R.id.nav_dashboard, this);
+        setupBottomAdminNavigation(R.id.nav_dashboard, this);
         binding.logout.setOnClickListener(v->{
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(AdminDashboardActivity.this,"Logged out successfully",Toast.LENGTH_SHORT).show();

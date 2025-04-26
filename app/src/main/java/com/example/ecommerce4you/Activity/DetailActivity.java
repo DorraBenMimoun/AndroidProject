@@ -18,7 +18,10 @@ import com.example.ecommerce4you.Adapter.PicListAdapter;
 import com.example.ecommerce4you.Adapter.SizeAdapter;
 import com.example.ecommerce4you.Domain.CartModel;
 import com.example.ecommerce4you.Domain.ItemsModel;
+import com.example.ecommerce4you.Domain.WishlistModel;
 import com.example.ecommerce4you.Helper.ManagmentCart;
+import com.example.ecommerce4you.Helper.*;
+
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.databinding.ActivityDetailBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         initPicList();
         initSize();
         initColor();
+
 
     }
 
@@ -81,48 +85,22 @@ public class DetailActivity extends AppCompatActivity {
 
         binding.addToCartBtn.setOnClickListener(v->
         {
-            // Récupération de l’ID utilisateur
-           /* SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-            userId = prefs.getString("userId", null);
-            if (userId == null) {
-                Toast.makeText(this, "Veuillez vous connecter", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Construction de l’objet CartModel
-            CartModel cartItem = new CartModel();
-            cartItem.setUserId(userId);
-            cartItem.setItemId(object.getItemId());
-            cartItem.setQuantity(numberOrder);
-
-            */
-            //addToCart(cartItem);
-
-
-
             object.setNumberinCart(numberOrder);
             managmentCart.insertItem(object);
         });
 
+        WishlistManager wishlistManager = new WishlistManager();
+
+        binding.favBtn.setOnClickListener(v -> {
+            wishlistManager.addToWishlist(object.getItemId());
+            Toast.makeText(DetailActivity.this, "Ajouté à la Wishlist", Toast.LENGTH_SHORT).show();
+        });
+
+
         binding.backBtn.setOnClickListener(v->finish());
     }
 
-   /* private void addToCart(CartModel cartItem) {
-        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("carts");
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // utilisateur connecté
-        String cartItemId = cartRef.child(userId).push().getKey(); // identifiant unique pour l'item
-
-        if (cartItemId != null) {
-            cartRef.child(userId).child(cartItemId).setValue(cartItem)
-                    .addOnSuccessListener(aVoid ->
-                            Toast.makeText(DetailActivity.this, "Produit ajouté au panier", Toast.LENGTH_SHORT).show()
-                    )
-                    .addOnFailureListener(e ->
-                            Toast.makeText(DetailActivity.this, "Erreur : " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                    );
-        }
-    }*/
 
 
 }

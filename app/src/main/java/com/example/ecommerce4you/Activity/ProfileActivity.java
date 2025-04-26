@@ -1,7 +1,6 @@
 package com.example.ecommerce4you.Activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,21 +9,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ecommerce4you.R;
-import com.example.ecommerce4you.databinding.ActivityOrdersBinding;
+import com.example.ecommerce4you.databinding.ActivityProfileBinding;
+import com.example.ecommerce4you.databinding.ActivityWishListBinding;
 
-public class OrdersActivity extends BaseAdminActivity {
-    private ActivityOrdersBinding binding;
+public class ProfileActivity extends BaseActivity {
+    private ActivityProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityOrdersBinding.inflate(getLayoutInflater());
+        binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Toast.makeText(this, "Orders Activity!", Toast.LENGTH_SHORT).show();
-
-
-        setupBottomAdminNavigation(R.id.nav_orders, this);
-
+        setupBottomNavigation(R.id.profile,binding.bottomNavigation,this);
     }
 }

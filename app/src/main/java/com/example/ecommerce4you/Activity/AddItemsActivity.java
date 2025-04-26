@@ -41,7 +41,7 @@ public class AddItemsActivity extends BaseAdminActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddItemsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setupBottomNavigation(R.id.nav_dashboard, this);
+        setupBottomAdminNavigation(R.id.nav_dashboard, this);
 
         binding.backBtnAddItem.setOnClickListener(v->finish());
 

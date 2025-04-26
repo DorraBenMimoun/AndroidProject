@@ -59,6 +59,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         });
         holder.binding.titleTxt.setText(items.get(position).getTitle());
 
+
     }
 
     @Override

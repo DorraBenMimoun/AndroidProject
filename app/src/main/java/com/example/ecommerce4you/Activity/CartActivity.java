@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
     private double tax;
     private ManagmentCart managmentCart;
@@ -63,6 +63,7 @@ public class CartActivity extends AppCompatActivity {
         initCartList();
         calculateCart();
         setListeners();
+        setupBottomNavigation(R.id.cart,binding.bottomNavigation,this);
     }
 
     private void initCartList() {

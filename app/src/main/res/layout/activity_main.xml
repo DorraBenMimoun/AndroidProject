@@ -224,7 +224,7 @@
         app:cnb_radius="50dp"
         app:cnb_unselectedColor="@color/black"
         app:cnb_iconSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

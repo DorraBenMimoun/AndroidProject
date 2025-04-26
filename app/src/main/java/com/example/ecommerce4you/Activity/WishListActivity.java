@@ -5,50 +5,46 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.ecommerce4you.Adapter.ItemListAdapter;
-import com.example.ecommerce4you.Adapter.PopularAdapter;
+import com.example.ecommerce4you.Adapter.WishlistAdapter;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.ViewModel.MainViewModel;
 import com.example.ecommerce4you.databinding.ActivityItemListBinding;
+import com.example.ecommerce4you.databinding.ActivityWishListBinding;
 
-public class ItemListActivity extends BaseAdminActivity {
+public class WishListActivity extends BaseActivity {
 
-    private ActivityItemListBinding binding;
+    private ActivityWishListBinding binding;
     private MainViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        binding = ActivityItemListBinding.inflate(getLayoutInflater());
+        binding = ActivityWishListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel =new MainViewModel();
 
-        initItemList();
-        setupBottomAdminNavigation(R.id.nav_products, this);
-
+        initWishList();
+        setupBottomNavigation(R.id.favorites,binding.bottomNavigation, this);
 
     }
 
-    private void initItemList() {
+    private void initWishList() {
         // Affiche un loader pendant le chargement
         binding.progressBarItems.setVisibility(View.VISIBLE);
 
         // Observe les données populaires depuis le ViewModel
-        viewModel.loadItems().observeForever(itemsModels -> {
+        viewModel.loadWishlist().observeForever(itemsModels -> {
             if (!itemsModels.isEmpty()) {
                 // Affiche les produits populaires dans un RecyclerView vertical
                 binding.itemsView.setLayoutManager(
                         new GridLayoutManager(this, 2)
                 );
-                binding.itemsView.setAdapter(new ItemListAdapter(itemsModels,
+                binding.itemsView.setAdapter(new WishlistAdapter(itemsModels,
                         this));
                 binding.itemsView.setNestedScrollingEnabled(true);
             }
@@ -57,7 +53,5 @@ public class ItemListActivity extends BaseAdminActivity {
             binding.progressBarItems.setVisibility(View.GONE);
         });
 
-        // Appelle la méthode de chargement (au cas où elle déclenche aussi un cache ou autre logique)
-        viewModel.loadPopular();
     }
 }

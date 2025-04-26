@@ -24,7 +24,7 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     // Liaison avec la vue (utilise ViewBinding pour accéder aux éléments de layout)
     private ActivityMainBinding binding;
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupBottomNavigation(R.id.home,binding.bottomNavigation,this);
+
         // Récupérer l'utilisateur actuellement connecté
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
@@ -58,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialise le ViewModel
         viewModel = new MainViewModel();
+        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
 
         // Initialise les différentes sections de l'application
         initCategory();   // Chargement des catégories
         initSlider();     // Chargement du carrousel (slider)
         initPopular();    // Chargement des produits populaires
-        bottomNavigation(); // Gestion de la navigation et du bouton panier
+        //bottomNavigation(); // Gestion de la navigation et du bouton panier
 
         binding.logout.setOnClickListener(v->{
             FirebaseAuth.getInstance().signOut();
@@ -78,23 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    // Méthode pour gérer la barre de navigation inférieure et le bouton panier
-    private void bottomNavigation() {
-        // Sélectionne l'onglet "home" par défaut
-        binding.bottomNavigation.setItemSelected(R.id.home, true);
-
-        // Listener sur les onglets de la barre de navigation
-        binding.bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(int i) {
-                // Tu peux gérer la navigation vers d'autres activités ici
-            }
-        });
-
-        // Redirection vers l'activité "CartActivity" quand on clique sur le bouton panier
-        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
-    }
 
     // Méthode pour initialiser les produits populaires
     private void initPopular() {

@@ -1,5 +1,7 @@
 package com.example.ecommerce4you.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ecommerce4you.Domain.BannerModel;
 import com.example.ecommerce4you.Domain.CategoryModel;
 import com.example.ecommerce4you.Domain.ItemsModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,9 +17,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainRepository {
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private MutableLiveData<ArrayList<ItemsModel>> wishList = new MutableLiveData<>();
 
     public LiveData<ArrayList<CategoryModel>> locadCategory(){
         MutableLiveData<ArrayList<CategoryModel>> listData =new MutableLiveData<>();
@@ -88,4 +93,67 @@ public class MainRepository {
         });
         return listData;
     }
+    public LiveData<ArrayList<ItemsModel>> loadWishlist() {
+        MutableLiveData<ArrayList<ItemsModel>> wishlistLiveData = new MutableLiveData<>();
+        ArrayList<ItemsModel> wishlistItems = new ArrayList<>();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // récupère l'ID de l'utilisateur connecté
+        DatabaseReference wishlistRef = firebaseDatabase.getReference("Wishlists").child(userId);
+        DatabaseReference itemsRef = firebaseDatabase.getReference("Items");
+
+        wishlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    wishlistLiveData.setValue(new ArrayList<>()); // pas de wishlist
+                    return;
+                }
+
+                ArrayList<String> itemIds = new ArrayList<>();
+
+                // Récupère tous les IDs dans la wishlist
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    String itemId = childSnapshot.getKey();
+                    itemIds.add(itemId);
+                }
+
+                if (itemIds.isEmpty()) {
+                    wishlistLiveData.setValue(new ArrayList<>());
+                    return;
+                }
+
+                // Maintenant on récupère chaque item par son ID dans "Items"
+                itemsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot itemsSnapshot) {
+                        for (String itemId : itemIds) {
+                            if (itemsSnapshot.hasChild(itemId)) {
+                                ItemsModel item = itemsSnapshot.child(itemId).getValue(ItemsModel.class);
+                                if (item != null) {
+                                    item.setItemId(itemId);
+                                    wishlistItems.add(item);
+                                }
+                            }
+                        }
+                        wishlistLiveData.setValue(wishlistItems);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Gère les erreurs
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Gère les erreurs
+            }
+        });
+
+        return wishlistLiveData;
+    }
+
+
+
 }

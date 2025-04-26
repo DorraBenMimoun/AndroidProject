@@ -12,7 +12,7 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 public abstract class BaseAdminActivity extends AppCompatActivity {
     protected ChipNavigationBar bottomAdminNavigation;
 
-    protected void setupBottomNavigation(int selectedItemId, Context context) {
+    protected void setupBottomAdminNavigation(int selectedItemId, Context context) {
         bottomAdminNavigation = findViewById(R.id.bottomAdminNavigation);
         bottomAdminNavigation.setItemSelected(selectedItemId, true);
 

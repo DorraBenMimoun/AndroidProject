@@ -25,7 +25,7 @@ public class UsersListActivity extends BaseAdminActivity {
         Toast.makeText(this, "Users List Activity", Toast.LENGTH_SHORT).show();
 
 
-        setupBottomNavigation(R.id.nav_users, this);
+        setupBottomAdminNavigation(R.id.nav_users, this);
 
     }
 }

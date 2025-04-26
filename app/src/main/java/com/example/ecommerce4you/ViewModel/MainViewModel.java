@@ -9,6 +9,7 @@ import com.example.ecommerce4you.Domain.ItemsModel;
 import com.example.ecommerce4you.Repository.MainRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainViewModel extends ViewModel {
     private final MainRepository repository = new MainRepository();
@@ -28,4 +29,10 @@ public class MainViewModel extends ViewModel {
     public LiveData<ArrayList<ItemsModel>> loadItems(){
         return repository.locadItems();
     }
+    public LiveData<ArrayList<ItemsModel>> loadWishlist() {
+        return repository.loadWishlist();
+    }
+
+
+
 }
