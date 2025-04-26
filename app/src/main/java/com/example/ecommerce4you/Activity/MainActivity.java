@@ -43,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Récupérer l'utilisateur actuellement connecté
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
+            if (userName == null || userName.isEmpty()) {
+                // Si le displayName n'existe pas, utiliser l'email comme fallback
+                userName = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            }
+
+            binding.textView5.setText(userName);
+        }
+
+
         // Initialise le ViewModel
         viewModel = new MainViewModel();
 

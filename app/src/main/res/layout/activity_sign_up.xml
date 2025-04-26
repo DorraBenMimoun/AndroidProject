@@ -50,6 +50,8 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="Name"
+                android:textColor="@color/darkGrey"
+
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 android:textColorHint="@color/darkGrey" />
@@ -66,6 +68,8 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="Email"
+                android:textColor="@color/darkGrey"
+
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 android:textColorHint="@color/darkGrey" />
@@ -81,6 +85,8 @@
                 android:drawableStart="@drawable/password"
                 android:drawablePadding="16dp"
                 android:ems="10"
+                android:textColor="@color/darkGrey"
+
                 android:hint="Password"
                 android:inputType="textPassword"
 

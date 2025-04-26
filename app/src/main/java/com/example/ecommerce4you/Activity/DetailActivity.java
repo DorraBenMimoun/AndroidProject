@@ -82,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.addToCartBtn.setOnClickListener(v->
         {
             // Récupération de l’ID utilisateur
-            SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+           /* SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
             userId = prefs.getString("userId", null);
             if (userId == null) {
                 Toast.makeText(this, "Veuillez vous connecter", Toast.LENGTH_SHORT).show();
@@ -94,7 +94,9 @@ public class DetailActivity extends AppCompatActivity {
             cartItem.setUserId(userId);
             cartItem.setItemId(object.getItemId());
             cartItem.setQuantity(numberOrder);
-            addToCart(cartItem);
+
+            */
+            //addToCart(cartItem);
 
 
 
@@ -105,7 +107,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(v->finish());
     }
 
-    private void addToCart(CartModel cartItem) {
+   /* private void addToCart(CartModel cartItem) {
         DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("carts");
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // utilisateur connecté
@@ -120,7 +122,7 @@ public class DetailActivity extends AppCompatActivity {
                             Toast.makeText(DetailActivity.this, "Erreur : " + e.getMessage(), Toast.LENGTH_SHORT).show()
                     );
         }
-    }
+    }*/
 
 
 }

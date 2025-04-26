@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A96E85"
+        android:background="#E7BBCD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
 
@@ -55,28 +55,37 @@
                         android:id="@+id/titleEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:hint="Title" />
+                        android:layout_marginTop="8dp"
+                        android:hint="Title"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
+                        />
 
                     <EditText
                         android:id="@+id/descriptionEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
                         android:hint="Description" />
 
                     <EditText
                         android:id="@+id/priceEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
                         android:hint="Price" />
 
                     <EditText
                         android:id="@+id/oldPriceEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
                         android:hint="Old Price"
 
                         />
@@ -85,7 +94,9 @@
                         android:id="@+id/offPercentEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
                         android:hint="Off %"
 
                         />
@@ -95,8 +106,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"
-                        android:layout_marginTop="10dp"
-
+                        android:layout_marginTop="8dp"
+                        android:popupBackground="@color/darkGrey"
                         />
 
                     <!--<EditText
@@ -111,8 +122,10 @@
                         android:id="@+id/sizeEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:hint="Sizes (e.g. S,M,L)"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
 
                         />
 
@@ -120,8 +133,10 @@
                         android:id="@+id/colorEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:hint="Colors (e.g. red,blue)"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
 
                         />
 
@@ -129,8 +144,10 @@
                         android:id="@+id/picUrlEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:hint="Image URLs (comma-separated)"
+                        android:textColorHint="@color/darkGrey"
+                        android:textColor="@color/darkGrey"
 
                         />
 
@@ -139,10 +156,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="16sp"
                         android:background="@drawable/btn"
-                        android:text="Add Item"
+                        android:text="ADD ITEM"
                         android:textSize="18sp"
                         android:textStyle="bold"
 

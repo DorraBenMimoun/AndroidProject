@@ -44,7 +44,9 @@
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Welcome Back" />
+                        android:text="Welcome Back"
+                        android:textColor="@color/darkGrey"
+                        />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -90,6 +92,7 @@
                     android:ems="10"
                     android:hint="Search..."
                     android:inputType="text"
+                    android:textColorHint="@color/darkGrey"
                     android:paddingHorizontal="16dp" />
 
                 <ImageView
@@ -140,7 +143,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="24dp">
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -177,19 +180,22 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+
+                >
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/popularView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressBarPopular"
@@ -211,6 +217,8 @@
         android:layout_height="70dp"
         android:background="@color/white"
         android:padding="4dp"
+        android:layout_marginBottom="50dp"
+
         app:cnb_menuResource="@menu/bottom_menu"
         app:cnb_orientationMode="horizontal"
         app:cnb_radius="50dp"

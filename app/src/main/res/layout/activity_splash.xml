@@ -39,9 +39,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18sp"
+                android:layout_marginTop="20sp"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/subtitle_splash"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textSize="16sp"
 
@@ -52,11 +54,11 @@
                 style="@android:style/Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="32dp"
+                android:layout_margin="30dp"
                 android:background="@drawable/orange_bg"
                 android:text="Let's Get Started"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/signinBtn"
@@ -64,6 +66,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/signin"
                 android:textAlignment="center"
+                android:textColor="@color/black"
+
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>

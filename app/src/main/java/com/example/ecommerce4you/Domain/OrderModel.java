@@ -12,8 +12,11 @@ public class OrderModel implements Serializable {
     private double deliveryFee;
     private double total;
     private long timestamp;
+    private String adress;
+    private String phone;
 
-    public OrderModel(String orderId, String userId, List<ItemsModel> items, double subtotal, double tax, double deliveryFee, double total, long timestamp) {
+
+    public OrderModel(String orderId, String userId, List<ItemsModel> items, double subtotal, double tax, double deliveryFee, double total, long timestamp, String adress, String phone) {
         this.orderId = orderId;
         this.userId = userId;
         this.items = items;
@@ -22,6 +25,24 @@ public class OrderModel implements Serializable {
         this.deliveryFee = deliveryFee;
         this.total = total;
         this.timestamp = timestamp;
+        this.adress = adress;
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getOrderId() {

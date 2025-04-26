@@ -1,29 +1,33 @@
 package com.example.ecommerce4you.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.ecommerce4you.Adapter.CartAdapter;
-import com.example.ecommerce4you.Domain.CartModel;
 import com.example.ecommerce4you.Domain.ItemsModel;
+import com.example.ecommerce4you.Domain.OrderModel;
 import com.example.ecommerce4you.Helper.ChangeNumberItemsListener;
 import com.example.ecommerce4you.Helper.ManagmentCart;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.databinding.ActivityCartBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -31,8 +35,8 @@ public class CartActivity extends AppCompatActivity {
     private ActivityCartBinding binding;
     private double tax;
     private ManagmentCart managmentCart;
+    private CartAdapter adapter;
     private String userId;
-    private ArrayList<CartModel> cartItems = new ArrayList<>();
 
 
     @Override
@@ -50,89 +54,133 @@ public class CartActivity extends AppCompatActivity {
         userId = prefs.getString("userId", null);
 
         if (userId == null) {
+            Log.e("CartActivity", "UserId is null !");
+
             // Si l'utilisateur n'est pas connecté, on ferme l'activité
             finish();
             return;
         }
-        Log.d("AuthState", "Current user: " + (userId != null ? userId: "No user logged in"));
-
-        setVariable();
         initCartList();
-
+        calculateCart();
+        setListeners();
     }
 
     private void initCartList() {
-        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("carts").child(userId);
+        if (managmentCart.getListCart().isEmpty()) {
+            binding.emptyTxt.setVisibility(View.VISIBLE);
+            binding.scrollViewCart.setVisibility(View.GONE);
+        } else {
+            binding.emptyTxt.setVisibility(View.GONE);
+            binding.scrollViewCart.setVisibility(View.VISIBLE);
 
-        cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                // On vide la liste avant de la remplir avec les nouveaux items
-                cartItems.clear();
-
-                // On récupère tous les items du panier de l'utilisateur
-                for (DataSnapshot cartItemSnapshot : snapshot.getChildren()) {
-                    CartModel item = cartItemSnapshot.getValue(CartModel.class);
-                    if (item != null) {
-                        cartItems.add(item);
-                    }
+            binding.cartView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new CartAdapter(managmentCart.getListCart(), this, new ChangeNumberItemsListener() {
+                @Override
+                public void changed() {
+                    calculateCart();
                 }
-
-                // Si le panier est vide
-                if (cartItems.isEmpty()) {
-                    binding.emptyTxt.setVisibility(View.VISIBLE);
-                    binding.scrollView3.setVisibility(View.GONE);
-                } else {
-                    binding.emptyTxt.setVisibility(View.GONE);
-                    binding.scrollView3.setVisibility(View.VISIBLE);
-                    // Mise à jour de l'adapter avec les articles récupérés
-                    binding.cartView.setLayoutManager(new LinearLayoutManager(CartActivity.this, LinearLayoutManager.VERTICAL, false));
-                    binding.cartView.setAdapter(new CartAdapter(cartItems, CartActivity.this, CartActivity.this::calculatorCart,userId));
-                }
-
-                // Calcul des totaux
-                calculatorCart();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.e("CART_ERROR", "Erreur de récupération des articles du panier: " + error.getMessage());
-            }
-        });
-    }
-
-    private void setVariable() {
-        binding.backBtn.setOnClickListener(v->finish());
-    }
-
-    private void calculatorCart() {
-        double percentTax = 0.02;
-        double delivery = 10;
-        double totalFee = 0;
-
-        // Calcul du total des articles dans le panier
-        for (CartModel item : cartItems) {
-            Log.d("cart item calculater","price : "+item.getPrice());
-            Log.d("cart item calculater","quantity : "+item.getQuantity());
-
-            totalFee += item.getPrice() * item.getQuantity(); // Total des articles
+            }, null); // pas besoin de userId ici car on ne travaille pas avec Firebase
+            binding.cartView.setAdapter(adapter);
         }
-        Log.d("cart item calculater","total fee : "+totalFee);
-
-        // Calcul de la taxe
-        tax = Math.round((totalFee * percentTax * 100.0)) / 100.0;
-        Log.d("cart item calculater","total tax : "+tax);
-
-
-        // Calcul du total final
-        double total = Math.round((totalFee + tax + delivery) * 100.0) / 100.0;
-        double itemTotal = Math.round((totalFee * 100.0)) / 100.0;
-
-        // Mise à jour des TextViews
-        binding.totalFeeTxt.setText("$" + itemTotal);
-        binding.taxTxt.setText("$" + tax);
-        binding.deliveryTxt.setText("$" + delivery);
-        binding.totalTxt.setText("$" + total);
     }
+
+    private void calculateCart() {
+        double total = managmentCart.getTotalFee();
+        double delivery = 10; // tu peux changer si tu veux
+
+        double totalWithDelivery = total + delivery;
+
+        binding.totalFeeTxt.setText("$" + String.format("%.2f", total));
+        binding.deliveryTxt.setText("$" + String.format("%.2f", delivery));
+        binding.totalTxt.setText("$" + String.format("%.2f", totalWithDelivery));
+    }
+
+    private void setListeners() {
+        binding.backBtn.setOnClickListener(v -> finish());
+       binding.orderNowBtn.setOnClickListener(v -> showOrderBottomSheet());
+
+        /*binding.orderNowBtn.setOnClickListener(v -> {
+            Toast.makeText(this, "Order Placed Successfully!", Toast.LENGTH_SHORT).show();
+             managmentCart.clearCart();
+        });*/
+    }
+
+    private void showOrderBottomSheet() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.order_bottom_sheet, null);
+        bottomSheetDialog.setContentView(view);
+
+        EditText etAddress = view.findViewById(R.id.etAddress);
+        EditText etPhone = view.findViewById(R.id.etPhone);
+        TextView tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
+        Button btnConfirmOrder = view.findViewById(R.id.btnConfirmOrder);
+
+        tvTotalPrice.setText("Total: $" + String.format("%.2f", managmentCart.getTotalFee()));
+
+        btnConfirmOrder.setOnClickListener(v1 -> {
+            String address = etAddress.getText().toString().trim();
+            String phone = etPhone.getText().toString().trim();
+
+            if (address.isEmpty() || phone.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            placeOrder(address, phone);
+
+            bottomSheetDialog.dismiss();
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    private void placeOrder(String address, String phone) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ordersRef = database.getReference("Orders");
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        String userId = auth.getCurrentUser().getUid();
+        String orderId = ordersRef.push().getKey(); // Crée un ID unique pour la commande
+
+        if (orderId == null) {
+            Toast.makeText(this, "Failed to generate order ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        double subtotal = managmentCart.getTotalFee();
+        double tax = 0; // pour l'instant, fixe à 0, à toi d'ajouter un calcul si besoin
+        double deliveryFee = 10; // frais de livraison
+        double total = subtotal + tax + deliveryFee;
+        long timestamp = System.currentTimeMillis();
+
+        // Prendre la liste actuelle des articles du panier
+        ArrayList<ItemsModel> itemsList = new ArrayList<>(managmentCart.getListCart());
+
+        // Créer l'objet OrderModel
+        OrderModel order = new OrderModel(
+                orderId,
+                userId,
+                itemsList,
+                subtotal,
+                tax,
+                deliveryFee,
+                total,
+                timestamp,
+                address,
+                phone
+        );
+
+        // Enregistrer dans Firebase
+        ordersRef.child(orderId).setValue(order)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
+                    managmentCart.clearCart();
+                    initCartList(); // pour rafraîchir la vue du panier
+                    startActivity(new Intent(CartActivity.this, MainActivity.class))   ;             })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to place order: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
 
 }
