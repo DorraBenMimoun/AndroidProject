@@ -5,20 +5,24 @@ import java.util.List;
 
 public class OrderModel implements Serializable {
     private String orderId;
+    private String userEmail;
     private String userId;
     private List<ItemsModel> items;
     private double subtotal;
     private double tax;
+    private double tva;
     private double deliveryFee;
     private double total;
     private long timestamp;
     private String adress;
     private String phone;
+    private boolean confirmed;
 
 
-    public OrderModel(String orderId, String userId, List<ItemsModel> items, double subtotal, double tax, double deliveryFee, double total, long timestamp, String adress, String phone) {
+    public OrderModel(String orderId, String userId,String userEmail, List<ItemsModel> items, double subtotal, double tax,double tva, double deliveryFee, double total, long timestamp, String adress, String phone,boolean confirmed) {
         this.orderId = orderId;
         this.userId = userId;
+        this.userEmail=userEmail;
         this.items = items;
         this.subtotal = subtotal;
         this.tax = tax;
@@ -27,11 +31,36 @@ public class OrderModel implements Serializable {
         this.timestamp = timestamp;
         this.adress = adress;
         this.phone = phone;
+        this.tva =tva;
+        this.confirmed=confirmed;
     }
 
     public OrderModel() {
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public double getTva() {
+        return tva;
+    }
+
+    public void setTva(double tva) {
+        this.tva = tva;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
     public String getAdress() {
         return adress;
     }

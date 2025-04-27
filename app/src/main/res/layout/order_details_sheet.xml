@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    android:padding="20dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:id="@+id/details_layout"
+        android:layout_width="210dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/orderIdText"
+            android:text="Order ID: #123456"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/userIdTextDetails"
+            android:text="User: user123"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/itemTitle"
+            android:text="Title : Pull homme"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/totalAmountTextDetails"
+            android:text="Total: $100.0"
+            android:textColor="#FF5722"
+            android:textSize="16sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/adressTextDetails"
+            android:text="Address: 123 Street, City"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/phoneTextDetails"
+            android:text="Phone: 123456789"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/orderDate"
+            android:text="Order Date: 22/07/2001"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/itemQuantity"
+            android:text="Quantity : 2"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/itemOrderedImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/grey_bg"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/details_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/details_layout"
+        app:layout_constraintTop_toTopOf="@+id/details_layout"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnConfirmOrderAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Confirm Order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

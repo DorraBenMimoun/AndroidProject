@@ -1,6 +1,7 @@
 package com.example.ecommerce4you.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -48,6 +49,8 @@ public class OrdersActivity extends BaseAdminActivity {
         orderRecyclerView.setAdapter(orderAdapter);
 
         loadOrdersFromFirebase();
+
+
     }
 
     private void loadOrdersFromFirebase() {
@@ -59,6 +62,8 @@ public class OrdersActivity extends BaseAdminActivity {
                         for (DataSnapshot orderSnap : snapshot.getChildren()) {
                             OrderModel order = orderSnap.getValue(OrderModel.class);
                             if (order != null) {
+                                Log.d("order list", "order list : "+order);
+
                                 orderList.add(order);
                             }
                         }

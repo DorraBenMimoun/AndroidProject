@@ -33,7 +33,8 @@ import java.util.ArrayList;
 
 public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
-    private double tax;
+    private double tax ;
+    private double TVA=15;
     private ManagmentCart managmentCart;
     private CartAdapter adapter;
     private String userId;
@@ -88,22 +89,23 @@ public class CartActivity extends BaseActivity {
     private void calculateCart() {
         double total = managmentCart.getTotalFee();
         double delivery = 10; // tu peux changer si tu veux
-
-        double totalWithDelivery = total + delivery;
+        tax= total * (TVA/100);
+        double totalWithDelivery = total + delivery +tax;
 
         binding.totalFeeTxt.setText("$" + String.format("%.2f", total));
         binding.deliveryTxt.setText("$" + String.format("%.2f", delivery));
         binding.totalTxt.setText("$" + String.format("%.2f", totalWithDelivery));
+        binding.TVA.setText("%"+String.format("%.2f", TVA));
+
+        binding.taxTxt.setText("$" + String.format("%.2f", tax));
+
     }
 
     private void setListeners() {
         binding.backBtn.setOnClickListener(v -> finish());
        binding.orderNowBtn.setOnClickListener(v -> showOrderBottomSheet());
 
-        /*binding.orderNowBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "Order Placed Successfully!", Toast.LENGTH_SHORT).show();
-             managmentCart.clearCart();
-        });*/
+
     }
 
     private void showOrderBottomSheet() {
@@ -113,7 +115,7 @@ public class CartActivity extends BaseActivity {
 
         EditText etAddress = view.findViewById(R.id.etAddress);
         EditText etPhone = view.findViewById(R.id.etPhone);
-        TextView tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
+        TextView tvTotalPrice = view.findViewById(R.id.totalTxt);
         Button btnConfirmOrder = view.findViewById(R.id.btnConfirmOrder);
 
         tvTotalPrice.setText("Total: $" + String.format("%.2f", managmentCart.getTotalFee()));
@@ -141,6 +143,7 @@ public class CartActivity extends BaseActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         String userId = auth.getCurrentUser().getUid();
+        String userEmail= auth.getCurrentUser().getEmail();
         String orderId = ordersRef.push().getKey(); // Crée un ID unique pour la commande
 
         if (orderId == null) {
@@ -149,7 +152,6 @@ public class CartActivity extends BaseActivity {
         }
 
         double subtotal = managmentCart.getTotalFee();
-        double tax = 0; // pour l'instant, fixe à 0, à toi d'ajouter un calcul si besoin
         double deliveryFee = 10; // frais de livraison
         double total = subtotal + tax + deliveryFee;
         long timestamp = System.currentTimeMillis();
@@ -161,16 +163,19 @@ public class CartActivity extends BaseActivity {
         OrderModel order = new OrderModel(
                 orderId,
                 userId,
+                userEmail,
                 itemsList,
                 subtotal,
                 tax,
+                TVA,
                 deliveryFee,
                 total,
                 timestamp,
                 address,
-                phone
+                phone,
+                false
         );
-
+Log.d("Order","TVA"+TVA);
         // Enregistrer dans Firebase
         ordersRef.child(orderId).setValue(order)
                 .addOnSuccessListener(aVoid -> {
