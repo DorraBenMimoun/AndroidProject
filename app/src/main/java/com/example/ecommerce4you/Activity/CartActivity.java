@@ -34,10 +34,12 @@ import java.util.ArrayList;
 public class CartActivity extends BaseActivity {
     private ActivityCartBinding binding;
     private double tax ;
+    private double delivery=10;
     private double TVA=15;
     private ManagmentCart managmentCart;
     private CartAdapter adapter;
     private String userId;
+    private double totalWithDelivery;
 
 
     @Override
@@ -88,9 +90,8 @@ public class CartActivity extends BaseActivity {
 
     private void calculateCart() {
         double total = managmentCart.getTotalFee();
-        double delivery = 10; // tu peux changer si tu veux
         tax= total * (TVA/100);
-        double totalWithDelivery = total + delivery +tax;
+        totalWithDelivery = total + delivery +tax;
 
         binding.totalFeeTxt.setText("$" + String.format("%.2f", total));
         binding.deliveryTxt.setText("$" + String.format("%.2f", delivery));
@@ -115,10 +116,10 @@ public class CartActivity extends BaseActivity {
 
         EditText etAddress = view.findViewById(R.id.etAddress);
         EditText etPhone = view.findViewById(R.id.etPhone);
-        TextView tvTotalPrice = view.findViewById(R.id.totalTxt);
+        TextView tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
         Button btnConfirmOrder = view.findViewById(R.id.btnConfirmOrder);
 
-        tvTotalPrice.setText("Total: $" + String.format("%.2f", managmentCart.getTotalFee()));
+        tvTotalPrice.setText("Total: $" + String.format("%.2f",totalWithDelivery));
 
         btnConfirmOrder.setOnClickListener(v1 -> {
             String address = etAddress.getText().toString().trim();

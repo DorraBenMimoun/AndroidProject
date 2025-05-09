@@ -2,9 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white"
+    android:background="@color/lightGrey"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.OrderDetailActivity"
+    >
 
     <!-- Zone Détails de la commande -->
     <LinearLayout
@@ -56,8 +59,9 @@
     <TextView
         android:id="@+id/totalAmountText"
         android:text="Total:"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:layout_marginBottom="5dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -107,7 +111,7 @@
     <TextView
         android:id="@+id/orderConfirmed"
         android:text="Confirmed:"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:layout_marginBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -133,5 +137,8 @@
         android:text="Confirm Order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn"
+        android:textSize="18sp"
+
         android:layout_marginTop="12dp"/>
 </LinearLayout>
