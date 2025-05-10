@@ -1,0 +1,77 @@
+[33mcommit 0b02a721a2398ada8b6659a6861541913129636e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Nejia-darghouth <nejia.darghouth@edu.isetcom.tn>
+Date:   Sun Apr 27 13:06:26 2025 +0100
+
+    Order details, confirm order
+
+[33mcommit 49e7252778e5d8726b232cc498d17a4322d061ef[m
+Author: Nejia-darghouth <nejia.darghouth@edu.isetcom.tn>
+Date:   Sat Apr 26 22:59:04 2025 +0100
+
+    order list
+
+[33mcommit 37728fccbf6138a7f36d1112960b90ce1976b435[m
+Author: Nejia-darghouth <nejia.darghouth@edu.isetcom.tn>
+Date:   Sat Apr 26 21:12:55 2025 +0100
+
+    wishlist crud
+
+[33mcommit 87376bb9cc6c063d56607721078e8d35b671806d[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Sat Apr 26 12:49:06 2025 +0100
+
+    update interfaces colors,add item to local cart,order now
+
+[33mcommit 8ad4a649c0b85308390ca11b1b9f0e1e6ecdccce[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Tue Apr 22 14:58:20 2025 +0100
+
+    Admin dashboard, add item, delete item,add category,add Firebase Authentification, add item to cart,bottom admin menu, logout
+
+[33mcommit be9b1a9290a42cdf19737024586af133bc5a8b57[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Sat Apr 19 11:59:58 2025 +0100
+
+    Sign Up Activity UI
+
+[33mcommit 2f2165f8aa0d1e6405e75503f40c4fc02ce006c4[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Sat Apr 19 11:51:59 2025 +0100
+
+    Login Activity UI
+
+[33mcommit fadedfeeb93e1e4f13d60555a9560212f025a6e3[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Fri Apr 18 10:56:44 2025 +0100
+
+    Cart Activity Backend
+
+[33mcommit b6485d1cda4b991a62309467df84ef69be05594d[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Thu Apr 17 21:44:15 2025 +0100
+
+    Cart Activity UI
+
+[33mcommit 8140a04ac18d4576f32c380ea5bd5df73d76ce6f[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Thu Apr 17 19:27:01 2025 +0100
+
+    Item Detail Backend ,color & size of item
+
+[33mcommit eb0c250e922ff8488f48156603b05cc44b09fa8a[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Thu Apr 17 16:53:48 2025 +0100
+
+    Item Detail UI
+
+[33mcommit 5c0c371c6a1860085cc09e56eb7420d82bf8ba84[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Thu Apr 17 15:10:37 2025 +0100
+
+    bottom navigation
+
+[33mcommit 6966d246bcf715c8fb423696b192f994641622f1[m
+Author: DorraBenMimoun <dorrabenmimoun@gmail.com>
+Date:   Thu Apr 17 14:16:57 2025 +0100
+
+    Splash activity,top section dashboard,category-banner-popular in dashboard, Firebase Confuguration
