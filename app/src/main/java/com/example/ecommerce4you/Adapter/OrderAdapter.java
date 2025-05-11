@@ -1,78 +1,61 @@
 package com.example.ecommerce4you.Adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.ecommerce4you.Activity.OrderDetailActivity;
 import com.example.ecommerce4you.Domain.OrderModel;
 import com.example.ecommerce4you.R;
-import com.example.ecommerce4you.databinding.ViewholderItemOrderBinding;
-import com.example.ecommerce4you.databinding.ViewholderItemslistBinding;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    private List<OrderModel> orderList;
-    Context context;
+    private ArrayList<OrderModel> orderList;
+    private OnOrderClickListener onOrderClickListener;
 
-    public OrderAdapter(List<OrderModel> orderList, Context context) {
-        this.orderList = orderList;
-        this.context = context;
-
+    public interface OnOrderClickListener {
+        void onOrderClick(OrderModel order);
     }
+
+    public OrderAdapter(ArrayList<OrderModel> orderList, OnOrderClickListener listener) {
+        this.orderList = orderList;
+        this.onOrderClickListener = listener;
+    }
+
     @NonNull
     @Override
-    public OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context=parent.getContext();
-        ViewholderItemOrderBinding binding = ViewholderItemOrderBinding.inflate(LayoutInflater.from(context),parent,false);
-        return new ViewHolder(binding);   }
+    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_order, parent, false);
+        return new OrderViewHolder(view);
+    }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         OrderModel order = orderList.get(position);
 
-        holder.binding.orderIdText.setText("Order ID: #" + order.getOrderId());
-        holder.binding.userEmail.setText("User: " + order.getUserEmail());
-        holder.binding.totalAmountText.setText("Total: $" + order.getTotal());
-        holder.binding.adressText.setText("Address: " + order.getAdress());
-        holder.binding.phoneText.setText("Phone: " + order.getPhone());
-        if ((order.isConfirmed()))
-        {
-            holder.binding.confirmed.setText("Confirmed: Yes");
-        }
-        else
-        {
-            holder.binding.confirmed.setText("Confirmed: No");
-        }
+        // Format timestamp to readable date
+        String formattedDate = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
+                .format(new Date(order.getTimestamp()));
 
-        // Quand l'admin clique sur un order
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), OrderDetailActivity.class);
-            intent.putExtra("order", order); // OrderModel doit être Serializable
-            holder.itemView.getContext().startActivity(intent);
-        });
+        holder.orderId.setText("Commande #" + order.getTimestamp());
+        holder.orderTotal.setText(String.format("Total: %.2f TND", order.getTotal()));
+        holder.orderDate.setText(formattedDate);
+        holder.orderItems.setText(order.getNumberItems() + " articles");
+        holder.orderStatus.setText(order.isConfirmed() ? "Confirmée" : "En attente");
+        holder.orderAddress.setText(order.getAdress());
 
-
+        // Set click listener
+        holder.itemView.setOnClickListener(v -> onOrderClickListener.onOrderClick(order));
     }
 
     @Override
@@ -80,12 +63,17 @@ public class OrderAdapter  extends RecyclerView.Adapter<OrderAdapter.ViewHolder>
         return orderList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ViewholderItemOrderBinding binding;
-        public ViewHolder(ViewholderItemOrderBinding binding) {
-            super(binding.getRoot());
-            this.binding=binding;
+    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+        TextView orderId, orderTotal, orderDate, orderItems, orderStatus, orderAddress;
 
+        public OrderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            orderId = itemView.findViewById(R.id.order_id);
+            orderTotal = itemView.findViewById(R.id.order_total);
+            orderDate = itemView.findViewById(R.id.order_date);
+            orderItems = itemView.findViewById(R.id.order_items);
+            orderStatus = itemView.findViewById(R.id.order_status);
+            orderAddress = itemView.findViewById(R.id.order_address);
         }
     }
 }

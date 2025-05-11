@@ -97,6 +97,10 @@ public class OrderModel implements Serializable {
         return items;
     }
 
+    public int getNumberItems(){
+        return items.toArray().length;
+    }
+
     public void setItems(List<ItemsModel> items) {
         this.items = items;
     }
@@ -139,6 +143,10 @@ public class OrderModel implements Serializable {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getId() {
+        return this.orderId;
     }
 }
 

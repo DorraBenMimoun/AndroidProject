@@ -65,6 +65,8 @@
             android:exported="true" />
 
         <activity android:name=".Activity.TestActivity" />
+        <activity android:name=".Activity.AdminOrdersActivity" />
+
 
     </application>
 

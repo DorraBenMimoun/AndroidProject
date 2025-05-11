@@ -58,7 +58,7 @@ public class OrdersActivity extends BaseAdminActivity {
         orderList = new ArrayList<>();
 
         // Initialisation de l'adaptateur avec la liste vide pour l'instant
-        orderAdapter = new OrderAdapter(orderList, this);
+        orderAdapter = new OrderAdapter((ArrayList<OrderModel>) orderList, (OrderAdapter.OnOrderClickListener) this);
 
         // On connecte la RecyclerView à l'adaptateur
         orderRecyclerView.setAdapter(orderAdapter);

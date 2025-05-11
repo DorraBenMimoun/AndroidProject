@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 
+import com.bumptech.glide.Glide;
 import com.example.ecommerce4you.Adapter.CategoryAdapter;
 import com.example.ecommerce4you.Adapter.PopularAdapter;
 import com.example.ecommerce4you.Adapter.SliderAdpater;
@@ -72,6 +73,13 @@ public class MainActivity extends BaseActivity {
                             String capitalizedName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
 
                             binding.textView5.setText(capitalizedName);
+
+                            String imageUrl = "https://ui-avatars.com/api/?name=" + capitalizedName+ "&rounded=true&size=216" ;
+                            Glide.with(this)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.profile) // image temporaire pendant le chargement
+                                    .into(binding.imageView2);
+
                         }
                     })
                     .addOnFailureListener(e -> {

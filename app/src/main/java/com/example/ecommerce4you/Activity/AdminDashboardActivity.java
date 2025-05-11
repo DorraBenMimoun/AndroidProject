@@ -40,6 +40,12 @@ public class AdminDashboardActivity extends BaseAdminActivity {
         binding = ActivityAdminDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.viewOrdersBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboardActivity.this, AdminOrdersActivity.class);
+            startActivity(intent);
+        });
+
+
         Toast.makeText(this, "Welcome Admin!", Toast.LENGTH_SHORT).show();
 
         // Bouton pour ajouter un item
