@@ -14,6 +14,8 @@ googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "20.3.0"
 firebaseAuth = "22.3.0"
 firebase-firestore = "24.11.0"
+ccp = "2.7.3"
+
 
 credentials = "1.5.0"
 credentialsPlayServicesAuth = "1.5.0"
@@ -36,6 +38,7 @@ firebase-firestore = { group = "com.google.firebase", name= "firebase-firestore"
 credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+countrycodepicker = { module = "com.hbb20:ccp", version.ref = "ccp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

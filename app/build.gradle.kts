@@ -53,4 +53,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.gson)
     implementation(libs.chip.navigation.bar)
+    implementation(libs.countrycodepicker)
+
 }

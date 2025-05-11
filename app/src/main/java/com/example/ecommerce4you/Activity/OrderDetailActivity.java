@@ -14,8 +14,10 @@ import com.example.ecommerce4you.Adapter.OrderDetailAdapter;
 import com.example.ecommerce4you.Domain.OrderModel;
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.databinding.ActivityOrderDetailBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,8 +62,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         binding.taxAmountText.setText("Tax: $" + String.format("%.2f", orderModel.getTax()));
         binding.tvaAmountText.setText("TVA: " + String.format("%.2f", orderModel.getTva()) + " %");
         binding.deliveryAmountText.setText("Delivery: $" + String.format("%.2f", orderModel.getDeliveryFee()));
-        binding.addressText.setText("Address: " + orderModel.getAdress());
-        binding.phoneText.setText("Phone: " + orderModel.getPhone());
+
+     binding.addressText.setText("Address: " + orderModel.getAdress());
+            binding.phoneText.setText("Phone: " + orderModel.getPhone());
+
+
 
         // Affichage de la date formatée à partir du timestamp
         binding.orderDate.setText("Order Date: " + getFormattedDate(orderModel.getTimestamp()));

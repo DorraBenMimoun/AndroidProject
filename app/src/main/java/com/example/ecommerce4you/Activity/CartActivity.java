@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -120,6 +121,30 @@ public class CartActivity extends BaseActivity {
         Button btnConfirmOrder = view.findViewById(R.id.btnConfirmOrder);
 
         tvTotalPrice.setText("Total: $" + String.format("%.2f",totalWithDelivery));
+
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            FirebaseFirestore.getInstance()
+                    .collection("Users")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String address = documentSnapshot.getString("address");
+                            String phone = documentSnapshot.getString("phone");
+
+                            etAddress.setText(address);
+                            etPhone.setText(phone);
+
+
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getApplicationContext(), "Erreur de lecture dans Firestore", Toast.LENGTH_SHORT).show();
+                    });
+        }
 
         btnConfirmOrder.setOnClickListener(v1 -> {
             String address = etAddress.getText().toString().trim();
