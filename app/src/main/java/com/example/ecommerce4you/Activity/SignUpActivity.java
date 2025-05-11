@@ -2,27 +2,19 @@ package com.example.ecommerce4you.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ecommerce4you.Domain.UserModel;
 import com.example.ecommerce4you.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText signupName, signupEmail, signupPassword;
@@ -30,7 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button signupButton;
 
     private FirebaseAuth auth;
-    private DatabaseReference reference;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
         loginRedirectText = findViewById(R.id.loginRedirectText);
 
         auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        db = FirebaseFirestore.getInstance();  // Initialiser Firestore
 
         signupButton.setOnClickListener(v -> {
             String name = signupName.getText().toString().trim();
@@ -63,10 +55,12 @@ public class SignUpActivity extends AppCompatActivity {
                             String userId = auth.getCurrentUser().getUid();
                             String role = "user"; // rôle par défaut
 
-                            // Étape 2 : Enregistrer les autres infos dans la DB
+                            // Étape 2 : Créer un modèle utilisateur avec Firestore
                             UserModel userModel = new UserModel(userId, name, email, role);
 
-                            reference.child(userId).setValue(userModel)
+                            // Enregistrer l'utilisateur dans la collection Firestore
+                            db.collection("Users").document(userId)  // Utiliser l'userId comme identifiant du document
+                                    .set(userModel)
                                     .addOnCompleteListener(dbTask -> {
                                         if (dbTask.isSuccessful()) {
                                             Toast.makeText(this, "Compte créé avec succès", Toast.LENGTH_SHORT).show();

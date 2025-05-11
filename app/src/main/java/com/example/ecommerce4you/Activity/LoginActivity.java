@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -89,38 +90,38 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         String userId = auth.getCurrentUser().getUid();
 
-                        // Récupérer les infos de l'utilisateur depuis Firebase DB
-                        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    String role = snapshot.child("role").getValue(String.class);
-                                    String username = snapshot.child("username").getValue(String.class);
+                        FirebaseFirestore.getInstance()
+                                .collection("Users")
+                                .document(userId)
+                                .get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        String role = documentSnapshot.getString("role");
+                                        String username = documentSnapshot.getString("username");
 
-                                    // Enregistrer le userId dans une SharedPreferences par exemple
-                                    getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                                            .edit()
-                                            .putString("userId", userId)
-                                            .apply();
+                                        // zeyed pour linstant vu que firebase auth soccupe de recuperer luser connecté
+//                                        getSharedPreferences("Ecommerce4YouApp", MODE_PRIVATE)
+//                                                .edit()
+//                                                .putString("userId", userId)
+//                                                .apply();
 
-                                    // Redirection selon le rôle
-                                    if ("admin".equals(role)) {
-                                        startActivity(new Intent(LoginActivity.this, AdminDashboardActivity.class));
+                                        // Redirection selon le rôle
+                                        if ("admin".equals(role)) {
+                                            startActivity(new Intent(LoginActivity.this, AdminDashboardActivity.class));
+                                        } else {
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        }
+                                        finish();
                                     } else {
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        loginEmail.setError("Utilisateur non trouvé dans Firestore.");
+                                        loginEmail.requestFocus();
                                     }
-                                    finish();
-                                } else {
-                                    loginEmail.setError("Utilisateur non trouvé dans la base de données.");
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("FIRESTORE", "Erreur Firestore: " + e.getMessage());
+                                    loginEmail.setError("Erreur Firestore");
                                     loginEmail.requestFocus();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("FIREBASE", "Erreur DB: " + error.getMessage());
-                            }
-                        });
+                                });
 
                     } else {
                         loginPassword.setError("Email ou mot de passe invalide");
@@ -128,4 +129,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

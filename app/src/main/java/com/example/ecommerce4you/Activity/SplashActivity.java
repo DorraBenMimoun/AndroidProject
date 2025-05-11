@@ -1,12 +1,15 @@
 package com.example.ecommerce4you.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ecommerce4you.databinding.ActivitySplashBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,7 +22,11 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.startBtn.setOnClickListener(v->
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+        }
+
+            binding.startBtn.setOnClickListener(v->
                 startActivity(new Intent(SplashActivity.this,SignUpActivity.class)));
         binding.signinBtn.setOnClickListener(v->
                 startActivity(new Intent(SplashActivity.this,LoginActivity.class)));

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,12 @@ import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.ViewModel.MainViewModel;
 import com.example.ecommerce4you.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
@@ -45,19 +52,32 @@ public class MainActivity extends BaseActivity {
 
         setupBottomNavigation(R.id.home,binding.bottomNavigation,this);
 
-        // Récupérer l'utilisateur actuellement connecté
+        // Recuperer Utilisateur connecté
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            if (userName == null || userName.isEmpty()) {
-                // Si le displayName n'existe pas, utiliser l'email comme fallback
-                userName = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-            }
+            FirebaseFirestore.getInstance()
+                    .collection("Users")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String userName = documentSnapshot.getString("name");
 
-            binding.textView5.setText(userName);
+                            // Si pas de username on prend l'email
+                            if (userName == null || userName.isEmpty()) {
+                                userName = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                            }
+
+                            String capitalizedName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+
+                            binding.textView5.setText(capitalizedName);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getApplicationContext(), "Erreur de lecture dans Firestore", Toast.LENGTH_SHORT).show();
+                    });
         }
-
-
         // Initialise le ViewModel
         viewModel = new MainViewModel();
         binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
