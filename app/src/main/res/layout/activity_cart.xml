@@ -13,9 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Cart is Empty"
+        android:textColor="@color/red"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/scrollViewCart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,26 +52,16 @@
                     android:layout_marginEnd="8dp"
                     app:srcCompat="@drawable/back" />
 
-                <EditText
-                    android:id="@+id/editTextText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/stroke_bg"
-                    android:drawableStart="@drawable/search_icon"
-                    android:drawableEnd="@drawable/microphone"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:hint="Search..."
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp" />
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/settings_icon" />
+                    android:text="CART Details"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:padding="4dp"
+                    />
 
             </LinearLayout>
 

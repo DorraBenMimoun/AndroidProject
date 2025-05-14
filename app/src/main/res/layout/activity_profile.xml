@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:background="@color/lightGrey"
     tools:context=".Activity.ProfileActivity">
 
     <!-- Conteneur vertical centré -->
@@ -15,9 +15,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="15dp"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.5">
@@ -37,6 +37,7 @@
             android:text="Modifiez vos informations"
             android:textSize="24sp"
             android:textStyle="bold"
+
             android:textColor="@android:color/black"
             android:layout_marginTop="8dp" />
 
@@ -45,12 +46,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:textColorHint="@color/black"
+
             android:hint="Nom complet">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,12 +63,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:textColorHint="@color/black"
             android:hint="Email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,12 +79,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:textColorHint="@color/black"
+
             android:hint="Adresse">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,12 +117,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:maxLength="8"
+                android:textColorHint="@color/black"
+
                 android:hint="Téléphone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -125,24 +137,27 @@
             android:text="Sauvegarder"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            app:cornerRadius="16dp" />
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="20dp"
+            />
     </LinearLayout>
 
     <!-- Barre de navigation en bas -->
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
+        android:id="@+id/bottomNavigation"
         android:layout_height="70dp"
-        android:layout_marginBottom="16dp"
-        android:padding="4dp"
         android:background="@color/white"
+        android:padding="4dp"
+        android:layout_marginTop="20dp"
+
         app:cnb_menuResource="@menu/bottom_menu"
         app:cnb_orientationMode="horizontal"
         app:cnb_radius="50dp"
         app:cnb_unselectedColor="@color/black"
         app:cnb_iconSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

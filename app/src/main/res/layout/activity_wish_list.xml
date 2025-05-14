@@ -13,7 +13,7 @@
         android:id="@+id/itemsTitleTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Wish List"
         android:textAlignment="center"
         android:textColor="@color/black"

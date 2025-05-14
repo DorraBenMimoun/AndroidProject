@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,28 +14,47 @@
         android:id="@+id/ordersTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:padding="16dp"
         android:text="Commandes"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-      />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-    <!-- Progress bar while loading -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+
 
     <!-- RecyclerView for order list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ordersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="8dp"/>
-</LinearLayout>
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomAdminNavigation"
+        app:layout_constraintTop_toBottomOf="@+id/ordersTitle"
+
+
+
+        />
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/bottomAdminNavigation"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:padding="4dp"
+        app:cnb_menuResource="@menu/bottom_admin_menu"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="50dp"
+        app:cnb_unselectedColor="@color/black"
+        app:cnb_iconSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

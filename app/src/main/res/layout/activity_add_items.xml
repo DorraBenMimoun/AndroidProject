@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E7BBCD"
+        android:background="@color/lightGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="Add New Item"
                     android:textAlignment="center"
-                    android:textColor="#520B2E"
+                    android:textColor="@color/black"
                     android:textSize="50sp"
                     android:textStyle="bold" />
 
@@ -106,8 +106,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"
+                        android:background="@drawable/spinner_background"
+
                         android:layout_marginTop="8dp"
-                        android:popupBackground="@color/darkGrey"
+                        android:popupBackground="@color/black"
                         />
 
                     <!--<EditText

@@ -28,7 +28,7 @@ public abstract class BaseAdminActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_users) {
                     intent = new Intent(context, UsersListActivity.class);
                 } else if (id == R.id.nav_orders) {
-                    intent = new Intent(context, OrdersActivity.class);
+                    intent = new Intent(context, AdminOrdersActivity.class);
                 }
                 if (intent != null) {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
