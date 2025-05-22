@@ -31,10 +31,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
+import android.view.inputmethod.EditorInfo;
+
 
 public class MainActivity extends BaseActivity {
 
-    // Liaison avec la vue (utilise ViewBinding pour accéder aux éléments de layout)
+    // Liaison avec la vue
     private ActivityMainBinding binding;
 
     // ViewModel utilisé pour récupérer les données (catégories, bannières, produits populaires)
@@ -44,14 +46,28 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Active le mode "Edge-to-Edge" pour une meilleure gestion du plein écran
-        EdgeToEdge.enable(this);
+
 
         // Initialise le ViewBinding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setupBottomNavigation(R.id.home,binding.bottomNavigation,this);
+
+
+        // recherche de produits
+        binding.searchText.setOnEditorActionListener((v, actionId, event) -> {
+            String text = binding.searchText.getText().toString().trim();
+            if (!text.isEmpty()) {
+                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                intent.putExtra("search_query", text);
+                binding.searchText.setText("");
+                startActivity(intent);
+            }
+            return true;
+        });
+
+
 
         // Recuperer Utilisateur connecté
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {

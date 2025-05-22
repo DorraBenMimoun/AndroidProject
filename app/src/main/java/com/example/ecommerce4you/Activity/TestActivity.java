@@ -18,10 +18,6 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Tu peux afficher un écran vide ou un simple layout
-        setContentView(android.R.layout.simple_list_item_1);
-
         migrateUsers();
     }
 

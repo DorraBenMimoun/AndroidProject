@@ -1,15 +1,7 @@
 package com.example.ecommerce4you.Activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import com.hbb20.CountryCodePicker;
-
 
 import com.example.ecommerce4you.R;
 import com.example.ecommerce4you.databinding.ActivityProfileBinding;
@@ -29,8 +21,6 @@ public class ProfileActivity extends BaseActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupBottomNavigation(R.id.profile, binding.bottomNavigation, this);
-
-        // Initialisation de ccp dans onCreate() après setContentView
 
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

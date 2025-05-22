@@ -16,6 +16,8 @@ public abstract class BaseAdminActivity extends AppCompatActivity {
         bottomAdminNavigation = findViewById(R.id.bottomAdminNavigation);
         bottomAdminNavigation.setItemSelected(selectedItemId, true);
 
+
+
         bottomAdminNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int id) {

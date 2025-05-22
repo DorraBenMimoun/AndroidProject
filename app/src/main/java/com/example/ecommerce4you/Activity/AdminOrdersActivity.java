@@ -44,10 +44,9 @@ public class AdminOrdersActivity extends BaseAdminActivity {
 
     private void setupRecyclerView() {
         orderAdapter = new OrderAdapter(orderList, order -> {
-            // Show toast when order is clicked
             Toast.makeText(this, "Order ID: " + order.getId(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AdminOrdersActivity.this, OrderDetailActivity.class);
-            intent.putExtra("order", order); // Assure-toi que OrderModel implémente Serializable
+            intent.putExtra("order", order);
             startActivity(intent);
         });
 

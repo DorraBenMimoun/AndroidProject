@@ -139,7 +139,6 @@ public class MainRepository {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Gère les erreurs
                     }
                 });
 
@@ -147,7 +146,6 @@ public class MainRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Gère les erreurs
             }
         });
 
