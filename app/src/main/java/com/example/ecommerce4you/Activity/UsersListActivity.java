@@ -3,29 +3,49 @@ package com.example.ecommerce4you.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.ecommerce4you.Adapter.UserAdapter;
 import com.example.ecommerce4you.R;
-import com.example.ecommerce4you.databinding.ActivityItemListBinding;
 import com.example.ecommerce4you.databinding.ActivityUsersListBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
 
 public class UsersListActivity extends BaseAdminActivity {
+
     private ActivityUsersListBinding binding;
+    private ArrayList<QueryDocumentSnapshot> usersList = new ArrayList<>();
+    private UserAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         binding = ActivityUsersListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Toast.makeText(this, "Users List Activity", Toast.LENGTH_SHORT).show();
 
+        setupBottomAdminNavigation(com.example.ecommerce4you.R.id.nav_users, this);
 
-        setupBottomAdminNavigation(R.id.nav_users, this);
+        binding.usersRecycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new UserAdapter(usersList);
+        binding.usersRecycler.setAdapter(adapter);
 
+        loadUsers();
+    }
+
+    private void loadUsers() {
+        FirebaseFirestore.getInstance().collection("Users")
+                .get()
+                .addOnSuccessListener(query -> {
+                    usersList.clear();
+                    for (QueryDocumentSnapshot doc : query) {
+                        usersList.add(doc);
+                    }
+                    adapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Erreur Firestore : " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
     }
 }
