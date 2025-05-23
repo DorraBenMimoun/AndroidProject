@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Ecommerce4You</string>
+    <string name="title_splash"><font color="#dc6f31">Your Shopping</font> Destination \n for Everything</string>
+    <string name="subtitle_splash"><font color="#dc6f31">Get personalized recommendations </font> \n  Enjoy fast, free shopping </string>
+    <string name="signin">Already have an account? <font color="#dc6f31">SignIn</font> </string>
+    <string name="total_icon">Icône total</string>
+    <string name="date_icon">Icône date</string>
+    <string name="items_icon">Icône articles</string>
+    <string name="address_icon">Icône adresse</string>
+
+</resources>
