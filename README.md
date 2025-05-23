@@ -1,7 +1,7 @@
 # E-Commerce4You 📱🛒
 
 Ecommerce4You est une application Android de commerce électronique développée en Java, utilisant Firebase pour la gestion de l'authentification et la base de données.
-L'application permet aux utilisateurs de s'inscrire, se connecter, parcourir des catégories de produits, ajouter des articles au panier, passer des commandes et consulter l'historique de leurs achats.
+L'application permet aux utilisateurs de s'inscrire, se connecter, parcourir des catégories de produits, ajouter des articles au panier et passer des commandes.
 ## 🛠 Fonctionnalités
 
 - 🔐 Authentification avec Firebase (Signup/Login)
@@ -21,9 +21,9 @@ L'application permet aux utilisateurs de s'inscrire, se connecter, parcourir des
 - XML (interfaces utilisateurs)
 - Firebase Authentication (authentification des utilisateurs)
 - Firebase Realtime Database (base de données temps réel)
-- Firebase Storage  (stockage des images produits, si utilisé)
-- RecyclerView, ViewModel, DataBinding
-- Glide (chargement d'images dans les vues)
+- Firestore (pour les utilisateurs)
+- RecyclerView, ViewModel, ViewBinding
+- Glide (chargement dynamique d'images dans les vues)
 
 ## ⚙️ Prérequis pour lancer le projet
 
@@ -31,13 +31,14 @@ L'application permet aux utilisateurs de s'inscrire, se connecter, parcourir des
 - Compte Firebase avec :
     * Firebase Authentication activé (mode Email/Password).
     * Firestore Database configurée.
+    * Firebase Realtime Database
 - Ajouter votre fichier google-services.json dans le dossier app/.
 - Connexion Internet pour utiliser Firebase.
 ## 🚀 Installation et lancement
 
    - Clonez le projet
 ```bash
-   git clone https://github.com/ton-nom-utilisateur/ecommerce4you.git
+   git clone https://github.com/DorraBenMimoun/AndroidProject.git
 ```
    - Ouvrez avec Android Studio
    - Lancez l'application sur un émulateur ou un appareil Android réel
