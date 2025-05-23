@@ -46,7 +46,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.binding.email.setText(email != null ? email : "—");
         holder.binding.role.setText(role != null ? role : "—");
 
-        // Génération d'une URL d'avatar
+        // Génération de la photo
         String safeName = (username != null && !username.isEmpty()) ? username : "User";
         String capitalized = safeName.substring(0, 1).toUpperCase() + safeName.substring(1).toLowerCase();
         String avatarUrl = "https://ui-avatars.com/api/?name=" + capitalized + "&rounded=true&size=128";
